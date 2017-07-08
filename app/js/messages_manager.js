@@ -3215,7 +3215,9 @@ angular.module('myApp.services')
             break
           }
 
-          // console.trace(dT(), 'edit message', message)
+          console.log(dT(), 'MSG EDIT ->> ', messagesForHistory[mid].message, ' -> ', message.message)
+          message.message = messagesForHistory[mid].message
+          
           saveMessages([message], {isEdited: true})
           safeReplaceObject(messagesStorage[mid], message)
 
@@ -3355,6 +3357,15 @@ angular.module('myApp.services')
           for (i = 0; i < update.messages.length; i++) {
             messageID = AppMessagesIDsManager.getFullMessageID(update.messages[i], channelID)
             message = messagesStorage[messageID]
+            
+            message.edit_date = message.date
+            console.log(dT(), 'MSG DELETE ->> ', message.message)
+            saveMessages([message], {isEdited: true})
+            safeReplaceObject(messagesStorage[messageID], message)
+            peerID = getMessagePeer(message)
+            $rootScope.$broadcast('message_edit', { peerID: peerID, id: message.id, mid: messageID})
+
+            
             if (message) {
               peerID = getMessagePeer(message)
               history = historiesUpdated[peerID] || (historiesUpdated[peerID] = {count: 0, unread: 0, msgs: {}})
@@ -3367,16 +3378,16 @@ angular.module('myApp.services')
               history.msgs[messageID] = true
 
               if (messagesForHistory[messageID]) {
-                messagesForHistory[messageID].deleted = true
-                delete messagesForHistory[messageID]
+                //messagesForHistory[messageID].deleted = true
+                //delete messagesForHistory[messageID]
               }
               if (messagesForDialogs[messageID]) {
-                messagesForDialogs[messageID].deleted = true
-                delete messagesForDialogs[messageID]
+                //messagesForDialogs[messageID].deleted = true
+                //delete messagesForDialogs[messageID]
               }
-              message.deleted = true
+              //message.deleted = true
               messagesStorage[messageID] = {
-                deleted: true,
+                //deleted: true,
                 id: messageID,
                 from_id: message.from_id,
                 to_id: message.to_id,
@@ -3394,7 +3405,8 @@ angular.module('myApp.services')
               }
             }
           }
-
+          
+          break
           angular.forEach(historiesUpdated, function (updatedData, peerID) {
             var historyStorage = historiesStorage[peerID]
             if (historyStorage !== undefined) {

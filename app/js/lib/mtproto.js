@@ -1592,7 +1592,7 @@ angular.module('izhukov.mtproto', ['izhukov.utils'])
                       dRes = message.result
                     }
                   }
-                  console.log(dT(), 'Rpc response', dRes)
+                  //console.log(dT(), 'Rpc response', dRes)
                 }
                 sentMessage.deferred.resolve(message.result)
               }

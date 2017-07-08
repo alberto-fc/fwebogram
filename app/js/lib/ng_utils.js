@@ -1051,7 +1051,8 @@ angular.module('izhukov.utils', [])
         $($window).off('mousemove', onEvent)
       }
 
-      var isIDLE = e.type == 'blur' || e.type == 'timeout' ? true : false
+      //var isIDLE = e.type == 'blur' || e.type == 'timeout' ? true : false
+      var isIDLE = false;
       if (hidden && document[hidden]) {
         isIDLE = true
       }
