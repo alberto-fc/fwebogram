@@ -1054,7 +1054,7 @@ angular.module('izhukov.utils', [])
       //var isIDLE = e.type == 'blur' || e.type == 'timeout' ? true : false
       var isIDLE = false;
       if (hidden && document[hidden]) {
-        isIDLE = true
+        isIDLE = false
       }
 
       $timeout.cancel(toPromise)
