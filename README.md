@@ -1,3 +1,4 @@
+(check this link too https://help.github.com/articles/syncing-a-fork/)
 ### 1. Clone your fork:
 
     git clone git@github.com:YOUR-USERNAME/YOUR-FORKED-REPO.git
